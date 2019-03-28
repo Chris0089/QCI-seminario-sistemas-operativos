@@ -1,4 +1,6 @@
 package com.chris89.ssocourse;
 
-public class ProcessList {
+class ProcessList {
+    Process process;
+    int size;
 }
