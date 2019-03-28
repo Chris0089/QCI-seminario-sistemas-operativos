@@ -1,4 +1,4 @@
-package com.chris89.sso;
+package com.chris89.ssocourse;
 
 public class Controller {
 }
