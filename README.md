@@ -1,8 +1,8 @@
-## Proyecto de curso
+# Proyecto de curso
 
-## Seminario de Sistemas Operativos
+#### Seminario de Sistemas Operativos
 
-### Universidad de Guadalajara
+#### Universidad de Guadalajara
 
 #### Centro de Ciencias Exactas e Ingenierías
 
