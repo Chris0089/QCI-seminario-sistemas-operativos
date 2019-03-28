@@ -1,4 +1,4 @@
-package sample;
+package com.chris89.sso;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
