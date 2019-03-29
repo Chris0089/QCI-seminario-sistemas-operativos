@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.chris89.ssocourse.Controller">
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chris89.ssocourse.Controller">
 <children>
     <GridPane prefHeight="543.0" prefWidth="537.0">
         <columnConstraints>
@@ -32,7 +33,7 @@
                 <children>
                     <Label text="Ejecución" GridPane.halignment="CENTER" />
                     <Label text="Quantum actual:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <TextField fx:id="currentAppGUI" editable="false" GridPane.columnIndex="1" />
+                    <TextField fx:id="cpuAppGUI" editable="false" GridPane.columnIndex="1" />
                     <TextField fx:id="quantumGUI" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 </children>
             </GridPane>
@@ -46,9 +47,9 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
-                    <Button fx:id="upQuantumBtn" mnemonicParsing="false"  text="Incrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Button fx:id="downQuantumBtn" mnemonicParsing="false"  text="Decrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                    <Button fx:id="addBtn" mnemonicParsing="false"  text="Agregar Aplicación" GridPane.halignment="CENTER" />
+                    <Button fx:id="upQuantumBtn" mnemonicParsing="false" text="Incrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Button fx:id="downQuantumBtn" mnemonicParsing="false" text="Decrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                    <Button fx:id="addBtn" mnemonicParsing="false" text="Agregar Aplicación" GridPane.halignment="CENTER" />
                 </children>
             </GridPane>
             <Label text="Lista de procesos" GridPane.halignment="CENTER" />
@@ -58,4 +59,10 @@
         </children>
     </GridPane>
 </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
 </GridPane>
