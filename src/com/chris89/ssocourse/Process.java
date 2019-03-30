@@ -7,6 +7,7 @@ public class Process {
     private String castedName;
     private int remainingTime;
     private boolean isBeingExecuted;
+    private String active;
 
 
     public Process(String newName, int newTime){
@@ -52,6 +53,15 @@ public class Process {
     public int getRemainingTime(){
         return remainingTime;
     }
+    public String getActive(){
+        return active;
+    }
 
+    void setActive(){
+        active = "CPU";
+    }
+    void setInactive(){
+        active="";
+    }
 
 }

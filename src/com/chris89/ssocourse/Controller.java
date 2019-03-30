@@ -3,6 +3,7 @@ package com.chris89.ssocourse;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
@@ -24,6 +25,7 @@ public class Controller implements Initializable{
     public TableColumn<Process, Integer> appTimeField;
     public TableColumn<Process, String> queueNameField;
     public TableColumn<Process, Integer> queueTimeField;
+    public TableColumn<Process, Integer> activeField;
     public TableColumn<Process, String> cpu1NameField;
     public TableColumn<Process, Integer> cpu1TimeField;
     ObservableList<Process> selectedApp;
@@ -35,7 +37,6 @@ public class Controller implements Initializable{
     Processor cpu1 = new Processor(quantum);
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         appNameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -43,6 +44,7 @@ public class Controller implements Initializable{
         appTableView.setItems(appObservableList);
         queueNameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
         queueTimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
+        activeField.setCellValueFactory(new PropertyValueFactory<>("Active"));
         queueTableView.setItems(queueObservableList);
         cpu1NameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
         cpu1TimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
@@ -50,6 +52,7 @@ public class Controller implements Initializable{
         quantumField.setText(Integer.toString(quantum));
         cpu1.awake();
         new cpu1Controller().runEverySecond();
+
     }
     ObservableList<Process> appObservableList = FXCollections.observableArrayList(
             new Process("Internet", 30, 1),
@@ -57,6 +60,7 @@ public class Controller implements Initializable{
             new Process("Paint", 5, 3),
             new Process("Winamp", 15, 4),
             new Process("Spotify", 45, 5 )
+
     );
     ObservableList<Process> queueObservableList = FXCollections.observableArrayList();
     ObservableList<Process> cpu1ObservableList = FXCollections.observableArrayList(
@@ -97,6 +101,7 @@ public class Controller implements Initializable{
         private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         void execution(){
             if(cpu1.getProcess().getRemainingTime()>0){
+                queueObservableList.get(cpu1.getProcessIndex()).setActive();
                 cpu1.getProcess().decRemeaningTime();
                 cpu1.decRemainingQuantum();
                 if(cpu1.getProcess().getRemainingTime() <=0){
@@ -133,19 +138,22 @@ public class Controller implements Initializable{
                             execution();
                         }else{
                             cpu1.quantum(quantum);
+                            queueObservableList.get(cpu1.processIndex).setInactive();
                             cpu1.incProcessIndex();
                             cpu1.addProcess(idle);
-                            cpu1ObservableList.add(idle);
                             if(queueObservableList.size()>0){
                                 if(cpu1.getProcessIndex()>=queueObservableList.size()){
                                     cpu1.resetProcessIndex();
                                     run();
                                 }else{
                                     cpu1.addProcess(queueObservableList.get(cpu1.getProcessIndex()));
+                                    queueObservableList.get(cpu1.getProcessIndex()).setActive();
                                     execution();
                                 }
                             }else{
                                 cpu1.resetProcessIndex();
+                                cpu1ObservableList.add(idle);
+                                run();
                             }
 
                             //maybe update query
