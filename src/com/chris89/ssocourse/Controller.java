@@ -12,9 +12,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import static java.util.concurrent.TimeUnit.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 
 public class Controller implements Initializable{
@@ -48,6 +53,8 @@ public class Controller implements Initializable{
         cpu1TimeField.setCellValueFactory(new PropertyValueFactory<>("ExecutionTime"));
         cpu1TableView.setItems(cpu1ObservableList);
         quantumField.setText(Integer.toString(quantum));
+        cpu1.awake();
+        cpu1.runEverySecond();
     }
     ObservableList<Process> appObservableList = FXCollections.observableArrayList(
             new Process("Internet", 30, 1),
@@ -93,6 +100,73 @@ public class Controller implements Initializable{
 
     public void addToCpu1(){
         //addProcessToCpu(cpu1, test, cpu1ObservableList);
+        if(cpu1.isActive()){
+            System.out.println("weird");
+            if(cpu1.getProcess().getName() == idle.getName()){
+                if(!queueObservableList.isEmpty()){
+                    cpu1.addProcess(queueObservableList.get(0));
+                        //restarle segunditos del quantum
+                        //pasarlo a idle
+                }else{
+                    System.out.println("no hay que agregar");
+                }
+            }else{
+                System.out.println("no idle");
+            }
+        }else{
+            //A7 feature
+        }
     }
+    /*
+    Runnable someRun = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("Hey there");
+        }
+    };
+    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+    executor.scheduleAtFixedRate(someRun, 0, 3, TimeUnit.SECONDS);
+
+    public void cpu1(){
+        final Runnable check = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Hey there");
+            }
+        };
+        final ScheduledFuture<?> checkHandler = scheduler
+    }*/
+
+    /*
+    Pseudocóde for multiple cpu
+     #cpu1
+        looks for process at the top
+             if process at top of the Queue{
+                takes it
+                awakes cpu2
+                process the process
+                calls cpu1
+              }else{
+                cpu1 is idle
+                every second calls cpu1
+              }
+     #cpu2
+     every second looks if awake
+        if awake{
+            if cpu1 is idle{
+                sleeps
+            }else{
+                if process at top of the Queue{
+                    takes it
+                    awakes next cpu
+                    process the process
+                    call cpu3
+            }
+        }else{
+            every second calls cpu2
+        }
+
+
+     */
 }
 
