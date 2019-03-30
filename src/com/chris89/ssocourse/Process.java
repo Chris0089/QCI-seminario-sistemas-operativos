@@ -1,6 +1,6 @@
 package com.chris89.ssocourse;
 
-class Process {
+public class Process {
     private String name;
     private int executionTime;
     private int id;
@@ -41,5 +41,14 @@ class Process {
         id=newID;
     }
 
+    public String getName(){
+        return name;
+    }
+    public int getExecutionTime(){
+        return  executionTime;
+    }
+    int getRemainingTime(){
+        return remainingTime;
+    }
 
 }

@@ -2,14 +2,16 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.chris89.ssocourse.Controller">
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chris89.ssocourse.Controller">
 <children>
-    <GridPane prefHeight="543.0" prefWidth="537.0">
+    <GridPane prefHeight="640.0" prefWidth="673.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="500.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="500.0" />
@@ -46,16 +48,32 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
-                    <Button fx:id="upQuantumBtn" mnemonicParsing="false"  text="Incrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Button fx:id="downQuantumBtn" mnemonicParsing="false"  text="Decrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                    <Button fx:id="addBtn" mnemonicParsing="false"  text="Agregar Aplicación" GridPane.halignment="CENTER" />
+                    <Button fx:id="upQuantumBtn" mnemonicParsing="false" text="Incrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Button fx:id="downQuantumBtn" mnemonicParsing="false" text="Decrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                    <Button fx:id="addBtn" mnemonicParsing="false" text="Agregar Aplicación" GridPane.halignment="CENTER" />
                 </children>
             </GridPane>
             <Label text="Lista de procesos" GridPane.halignment="CENTER" />
             <Label text="Aplicaciones" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <ListView fx:id="queueListGUI" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <ListView fx:id="appListGUI" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TableView fx:id="appTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="appNameField" prefWidth="204.0" text="Aplicación" />
+                <TableColumn fx:id="appTimeField" minWidth="0.0" prefWidth="132.0" text="Tiempo" />
+              </columns>
+            </TableView>
+            <TableView fx:id="queueTableGUI" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="nameField" prefWidth="202.0" text="Aplicación" />
+                <TableColumn fx:id="timeField" prefWidth="132.0" text="Tiempo" />
+              </columns>
+            </TableView>
         </children>
     </GridPane>
 </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
 </GridPane>
