@@ -54,7 +54,7 @@ public class Controller implements Initializable{
         cpu1TableView.setItems(cpu1ObservableList);
         quantumField.setText(Integer.toString(quantum));
         cpu1.awake();
-        cpu1.runEverySecond();
+        new cpu1Controller().runEverySecond();
     }
     ObservableList<Process> appObservableList = FXCollections.observableArrayList(
             new Process("Internet", 30, 1),
@@ -136,7 +136,22 @@ public class Controller implements Initializable{
         };
         final ScheduledFuture<?> checkHandler = scheduler
     }*/
-
+    class cpu1Controller {
+        private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        public void runEverySecond() {
+            final Runnable watcher = new Runnable() {
+                public void run() {
+                    //every second
+                    System.out.println("beep");
+                }
+            };
+            final ScheduledFuture<?> watcherHandle =
+                    scheduler.scheduleAtFixedRate(watcher, 1, 1, SECONDS);
+            scheduler.schedule(new Runnable() {
+                public void run() { watcherHandle.cancel(true); }
+            }, 60 * 60, SECONDS);
+        }
+    }
     /*
     Pseudocóde for multiple cpu
      #cpu1

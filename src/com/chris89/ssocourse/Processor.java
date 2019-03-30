@@ -39,20 +39,5 @@ class Processor {
     public boolean isActive(){
         return active;
     }
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    public void runEverySecond() {
-        final Runnable watcher = new Runnable() {
-            public void run() {
-                //every second
-                System.out.println("beep");
-
-            }
-        };
-        final ScheduledFuture<?> watcherHandle =
-                scheduler.scheduleAtFixedRate(watcher, 1, 1, SECONDS);
-        scheduler.schedule(new Runnable() {
-            public void run() { watcherHandle.cancel(true); }
-        }, 60 * 60, SECONDS);
-    }
 }
