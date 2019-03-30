@@ -1,11 +1,14 @@
 package com.chris89.ssocourse;
 
-class Process {
+public class Process {
     private String name;
     private int executionTime;
     private int id;
     private String castedName;
     private int remainingTime;
+    private boolean isBeingExecuted;
+    private String active;
+
 
     public Process(String newName, int newTime){
         name = newName;
@@ -41,5 +44,24 @@ class Process {
         id=newID;
     }
 
+    public String getName(){
+        return name;
+    }
+    public int getExecutionTime(){
+        return  executionTime;
+    }
+    public int getRemainingTime(){
+        return remainingTime;
+    }
+    public String getActive(){
+        return active;
+    }
+
+    void setActive(){
+        active = "CPU";
+    }
+    void setInactive(){
+        active="";
+    }
 
 }
