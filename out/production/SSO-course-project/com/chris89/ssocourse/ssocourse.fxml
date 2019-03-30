@@ -35,6 +35,6 @@
       <Label layoutX="150.0" layoutY="24.0" text="Lista de procesos" />
       <Label layoutX="524.0" layoutY="24.0" text="Aplicaciones" />
         <Button fx:id="addBtn" layoutX="427.0" layoutY="258.0" mnemonicParsing="false" onAction="#addToQueue" prefHeight="25.0" prefWidth="327.0" text="Agregar Aplicación" />
-        <Button fx:id="decQuantumBtn" layoutX="609.0" layoutY="398.0" mnemonicParsing="false" onAction="#addToCpu1" text="Decrementar Quantum" />
+        <Button fx:id="decQuantumBtn" layoutX="609.0" layoutY="398.0" mnemonicParsing="false" onAction="#decQuantum" text="Decrementar Quantum" />
    </children>
 </AnchorPane>

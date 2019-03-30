@@ -10,10 +10,13 @@ class Processor {
     Process activeProcess;
     boolean active;
     boolean sleep;
+    private int remainingQuantum;
+    int processIndex;
 
-    Processor(){
+    Processor(int quantum){
         activeProcess = new Process("idle", -1, 0);
         activateProcessor();
+        remainingQuantum = quantum;
     }
     void addProcess(Process process){
         activeProcess = process;
@@ -39,5 +42,22 @@ class Processor {
     public boolean isActive(){
         return active;
     }
-
+    public int getRemainingQuantum(){
+        return remainingQuantum;
+    }
+    void decRemainingQuantum(){
+        --remainingQuantum;
+    }
+    int getProcessIndex(){
+        return processIndex;
+    }
+    void incProcessIndex(){
+        ++processIndex;
+    }
+    void resetProcessIndex(){
+        processIndex=0;
+    }
+    void quantum(int quantum){
+        remainingQuantum=quantum;
+    }
 }

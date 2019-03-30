@@ -6,6 +6,8 @@ public class Process {
     private int id;
     private String castedName;
     private int remainingTime;
+    private boolean isBeingExecuted;
+
 
     public Process(String newName, int newTime){
         name = newName;
@@ -47,7 +49,7 @@ public class Process {
     public int getExecutionTime(){
         return  executionTime;
     }
-    int getRemainingTime(){
+    public int getRemainingTime(){
         return remainingTime;
     }
 

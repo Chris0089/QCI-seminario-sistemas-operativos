@@ -1,19 +1,13 @@
 package com.chris89.ssocourse;
 
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import static java.util.concurrent.TimeUnit.*;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -38,7 +32,8 @@ public class Controller implements Initializable{
     int quantum = 5;
     Process idle = new Process("idle", -1, 0);
     Process test = new Process("test", 25, 0);
-    Processor cpu1 = new Processor();
+    Processor cpu1 = new Processor(quantum);
+
 
 
     @Override
@@ -47,10 +42,10 @@ public class Controller implements Initializable{
         appTimeField.setCellValueFactory(new PropertyValueFactory<>("ExecutionTime"));
         appTableView.setItems(appObservableList);
         queueNameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        queueTimeField.setCellValueFactory(new PropertyValueFactory<>("ExecutionTime"));
+        queueTimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
         queueTableView.setItems(queueObservableList);
         cpu1NameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        cpu1TimeField.setCellValueFactory(new PropertyValueFactory<>("ExecutionTime"));
+        cpu1TimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
         cpu1TableView.setItems(cpu1ObservableList);
         quantumField.setText(Integer.toString(quantum));
         cpu1.awake();
@@ -73,13 +68,11 @@ public class Controller implements Initializable{
             oList.add(idle);
         }
     }
-    public void addProcessToCpu(Processor cpu, Process process, ObservableList oList){
-        cpu.addProcess(process);
-        oList.add(process);
-    }
+
     public void addToQueue(){
         selectedApp = appTableView.getSelectionModel().getSelectedItems();
-        queueObservableList.add(selectedApp.get(0));
+        Process process = new Process(selectedApp.get(0).getName(), selectedApp.get(0).getExecutionTime());
+        queueObservableList.add(process);
         ++queueTableSize;
     }
     public void removeProcess(ObservableList oList, Process process){
@@ -88,6 +81,7 @@ public class Controller implements Initializable{
     public void incQuantum(){
         ++quantum;
         quantumField.setText(Integer.toString(quantum));
+        cpu1.quantum(quantum);
     }
     public void decQuantum(){
         if(quantum>0){
@@ -96,53 +90,70 @@ public class Controller implements Initializable{
         }else{
             quantum = 0;
         }
+        cpu1.quantum(quantum);
     }
 
-    public void addToCpu1(){
-        //addProcessToCpu(cpu1, test, cpu1ObservableList);
-        if(cpu1.isActive()){
-            System.out.println("weird");
-            if(cpu1.getProcess().getName() == idle.getName()){
-                if(!queueObservableList.isEmpty()){
-                    cpu1.addProcess(queueObservableList.get(0));
-                        //restarle segunditos del quantum
-                        //pasarlo a idle
-                }else{
-                    System.out.println("no hay que agregar");
-                }
-            }else{
-                System.out.println("no idle");
-            }
-        }else{
-            //A7 feature
-        }
-    }
-    /*
-    Runnable someRun = new Runnable() {
-        @Override
-        public void run() {
-            System.out.println("Hey there");
-        }
-    };
-    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-    executor.scheduleAtFixedRate(someRun, 0, 3, TimeUnit.SECONDS);
-
-    public void cpu1(){
-        final Runnable check = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Hey there");
-            }
-        };
-        final ScheduledFuture<?> checkHandler = scheduler
-    }*/
     class cpu1Controller {
         private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        void execution(){
+            if(cpu1.getProcess().getRemainingTime()>0){
+                cpu1.getProcess().decRemeaningTime();
+                cpu1.decRemainingQuantum();
+                if(cpu1.getProcess().getRemainingTime() <=0){
+                    queueObservableList.remove(cpu1.getProcessIndex());
+                    cpu1.quantum(quantum);
+                    if(cpu1.getProcessIndex()>=queueObservableList.size()) {
+                        cpu1.resetProcessIndex();
+                    }
+                }
+                cpu1ObservableList.clear();
+                cpu1ObservableList.add(cpu1.getProcess());
+                queueTableView.refresh();
+            }else{
+                if(queueObservableList.size()>0){
+                    cpu1.addProcess(queueObservableList.get(cpu1.getProcessIndex()));
+                    queueTableView.refresh();
+                }else{
+                    cpu1.addProcess(idle);
+                    cpu1ObservableList.clear();
+                    cpu1ObservableList.add(idle);
+                    queueTableView.refresh();
+                }
+
+                //maybe update query
+                //add NEXT process
+            }
+        }
         public void runEverySecond() {
             final Runnable watcher = new Runnable() {
                 public void run() {
-                    //every second
-                    System.out.println("beep");
+                    System.out.println(Integer.toString(appObservableList.size()));
+                    if(cpu1.isActive()){
+                        if(cpu1.getRemainingQuantum()>0){
+                            execution();
+                        }else{
+                            cpu1.quantum(quantum);
+                            cpu1.incProcessIndex();
+                            cpu1.addProcess(idle);
+                            cpu1ObservableList.add(idle);
+                            if(queueObservableList.size()>0){
+                                if(cpu1.getProcessIndex()>=queueObservableList.size()){
+                                    cpu1.resetProcessIndex();
+                                    run();
+                                }else{
+                                    cpu1.addProcess(queueObservableList.get(cpu1.getProcessIndex()));
+                                    execution();
+                                }
+                            }else{
+                                cpu1.resetProcessIndex();
+                            }
+
+                            //maybe update query
+                            //add NEXT process
+                        }
+                    }else{
+                        //A7 feature
+                    }
                 }
             };
             final ScheduledFuture<?> watcherHandle =
