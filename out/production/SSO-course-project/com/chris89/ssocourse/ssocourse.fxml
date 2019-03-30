@@ -5,75 +5,36 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chris89.ssocourse.Controller">
-<children>
-    <GridPane prefHeight="640.0" prefWidth="673.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="500.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="500.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="120.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="400.0" minHeight="10.0" prefHeight="400.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-        <children>
-            <GridPane GridPane.rowIndex="2">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="10.0" prefWidth="96.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="172.0" />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                </rowConstraints>
-                <children>
-                    <Label text="Ejecución" GridPane.halignment="CENTER" />
-                    <Label text="Quantum actual:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <TextField fx:id="currentAppGUI" editable="false" GridPane.columnIndex="1" />
-                    <TextField fx:id="quantumGUI" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                </children>
-            </GridPane>
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                </rowConstraints>
-                <children>
-                    <Button fx:id="upQuantumBtn" mnemonicParsing="false" text="Incrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    <Button fx:id="downQuantumBtn" mnemonicParsing="false" text="Decrementar Quantum" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                    <Button fx:id="addBtn" mnemonicParsing="false" text="Agregar Aplicación" GridPane.halignment="CENTER" />
-                </children>
-            </GridPane>
-            <Label text="Lista de procesos" GridPane.halignment="CENTER" />
-            <Label text="Aplicaciones" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <TableView fx:id="appTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-              <columns>
-                <TableColumn fx:id="appNameField" prefWidth="204.0" text="Aplicación" />
-                <TableColumn fx:id="appTimeField" minWidth="0.0" prefWidth="132.0" text="Tiempo" />
-              </columns>
-            </TableView>
-            <TableView fx:id="queueTableGUI" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-              <columns>
-                <TableColumn fx:id="nameField" prefWidth="202.0" text="Aplicación" />
-                <TableColumn fx:id="timeField" prefWidth="132.0" text="Tiempo" />
-              </columns>
-            </TableView>
-        </children>
-    </GridPane>
-</children>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>
+
+<AnchorPane prefHeight="553.0" prefWidth="776.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chris89.ssocourse.Controller">
+   <children>
+      <TableView fx:id="cpu1TableView" layoutX="14.0" layoutY="464.0" prefHeight="62.0" prefWidth="362.0">
+        <columns>
+          <TableColumn fx:id="cpu1NameField" prefWidth="243.0" text="Aplicación" />
+          <TableColumn fx:id="cpu1TimeField" prefWidth="113.0" text="Tiempo" />
+        </columns>
+      </TableView>
+        <Button fx:id="incQuantumBtn" layoutX="407.0" layoutY="398.0" mnemonicParsing="false" onAction="#incQuantum" text="Incrementar Quantum" />
+        <Label layoutX="181.0" layoutY="439.0" text="CPU1" />
+        <Label layoutX="480.0" layoutY="357.0" text="Quantum actual:" />
+        <TextField fx:id="quantumField" editable="false" layoutX="585.0" layoutY="353.0" prefHeight="25.0" prefWidth="49.0" />
+      <TableView fx:id="appTableView" layoutX="389.0" layoutY="52.0" prefHeight="200.0" prefWidth="375.0">
+        <columns>
+          <TableColumn fx:id="appNameField" prefWidth="272.0" text="Aplicación" />
+          <TableColumn fx:id="appTimeField" prefWidth="97.0" text="Tiempo" />
+        </columns>
+      </TableView>
+      <TableView fx:id="queueTableView" layoutX="14.0" layoutY="52.0" prefHeight="378.0" prefWidth="362.0">
+        <columns>
+          <TableColumn fx:id="queueNameField" prefWidth="242.0" text="Aplicación" />
+          <TableColumn fx:id="queueTimeField" minWidth="0.0" prefWidth="114.0" text="Tiempo" />
+        </columns>
+      </TableView>
+      <Label layoutX="150.0" layoutY="24.0" text="Lista de procesos" />
+      <Label layoutX="524.0" layoutY="24.0" text="Aplicaciones" />
+        <Button fx:id="addBtn" layoutX="427.0" layoutY="258.0" mnemonicParsing="false" onAction="#addToQueue" prefHeight="25.0" prefWidth="327.0" text="Agregar Aplicación" />
+        <Button fx:id="decQuantumBtn" layoutX="609.0" layoutY="398.0" mnemonicParsing="false" onAction="#addToCpu1" text="Decrementar Quantum" />
+   </children>
+</AnchorPane>
