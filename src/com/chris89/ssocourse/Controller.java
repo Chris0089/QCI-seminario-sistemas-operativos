@@ -109,6 +109,7 @@ public class Controller implements Initializable{
                     cpu1.quantum(quantum);
                     if(cpu1.getProcessIndex()>=queueObservableList.size()) {
                         cpu1.resetProcessIndex();
+
                     }
                 }
                 cpu1ObservableList.clear();
@@ -129,9 +130,155 @@ public class Controller implements Initializable{
                 //add NEXT process
             }
         }
+        public void normalExecution(){
+            cpu1.getProcess().decRemeaningTime();
+            cpu1.decRemainingQuantum();
+            cpu1.getProcess().setActive();
+            queueTableView.refresh();
+            cpu1ObservableList.clear();
+            cpu1ObservableList.add(cpu1.getProcess());
+        }
+        public void addProcessToCpu(){
+            if(cpu1.getProcessIndex() >= queueObservableList.size()){
+                if (queueObservableList.size() > 0) {
+                    cpu1.resetProcessIndex();
+                    cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                    cpu1.getProcess().setActive();
+                    cpu1.quantum(quantum);
+                    queueTableView.refresh();
+                    cpu1ObservableList.clear();
+                    cpu1ObservableList.add(cpu1.getProcess());
+                }else{
+                    cpu1.resetProcessIndex();
+                    cpu1.addProcess(idle);
+                    cpu1.quantum(quantum);
+                    queueTableView.refresh();
+                    cpu1ObservableList.clear();
+                    cpu1ObservableList.add(cpu1.getProcess());
+                }
+            }else{
+                cpu1.incProcessIndex();
+                cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                cpu1.getProcess().setActive();
+                cpu1.quantum(quantum);
+                queueTableView.refresh();
+                cpu1ObservableList.clear();
+                cpu1ObservableList.add(cpu1.getProcess());
+            }
+        }
+        public void runCpu(){
+            if (cpu1.isActive()){
+                if(cpu1.getProcess().getName() != "idle"){
+                    if(cpu1.getRemainingQuantum()>1){
+                        if(cpu1.getProcess().getRemainingTime()>1){
+                            normalExecution();
+                        }else{
+                            normalExecution();
+                            queueObservableList.remove(cpu1.getProcessIndex());
+                            if (queueObservableList.size() > 0){
+                                if(cpu1.getProcessIndex()>=queueObservableList.size()){
+                                    cpu1.resetProcessIndex();
+                                    cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                                    cpu1.getProcess().setActive();
+                                    cpu1.quantum(quantum);
+                                    queueTableView.refresh();
+                                    cpu1ObservableList.clear();
+                                    cpu1ObservableList.add(cpu1.getProcess());
+                                }else{
+                                    cpu1.incProcessIndex();
+                                    cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                                    cpu1.getProcess().setActive();
+                                    cpu1.quantum(quantum);
+                                    queueTableView.refresh();
+                                    cpu1ObservableList.clear();
+                                    cpu1ObservableList.add(cpu1.getProcess());
+                                }
+                            }else{
+                                cpu1.resetProcessIndex();
+                                cpu1.addProcess(idle);
+                                cpu1.quantum(quantum);
+                                queueTableView.refresh();
+                                cpu1ObservableList.clear();
+                                cpu1ObservableList.add(cpu1.getProcess());
+                            }
+                        }
+                    }else{
+                        normalExecution();
+                        cpu1.getProcess().setInactive();
+                        if(cpu1.getProcess().getRemainingTime()>1){
+                            if(cpu1.getProcessIndex()>queueObservableList.size()){
+                                cpu1.resetProcessIndex();
+                                cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                                cpu1.getProcess().setActive();
+                                cpu1.quantum(quantum);
+                                queueTableView.refresh();
+                                cpu1ObservableList.clear();
+                                cpu1ObservableList.add(cpu1.getProcess());
+                                System.out.println("hey");
+                            }else{
+                                System.out.println("you");
+                                cpu1.incProcessIndex();
+                                cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                                cpu1.getProcess().setActive();
+                                cpu1.quantum(quantum);
+                                queueTableView.refresh();
+                                cpu1ObservableList.clear();
+                                cpu1ObservableList.add(cpu1.getProcess());
+                            }
+                        }else{
+                            queueObservableList.remove(cpu1.getProcessIndex());
+                            if(cpu1.getProcessIndex()>=queueObservableList.size()){
+                                cpu1.resetProcessIndex();
+                                cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                                cpu1.getProcess().setActive();
+                                cpu1.quantum(quantum);
+                                queueTableView.refresh();
+                                cpu1ObservableList.clear();
+                                cpu1ObservableList.add(cpu1.getProcess());
+                            }else{
+                                cpu1.incProcessIndex();
+                                cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                                cpu1.getProcess().setActive();
+                                cpu1.quantum(quantum);
+                                queueTableView.refresh();
+                                cpu1ObservableList.clear();
+                                cpu1ObservableList.add(cpu1.getProcess());
+                            }
+                        }
+                    }
+                }else{
+                    //because processindex should be 0
+                    if (queueObservableList.size() > 0){
+                        cpu1.resetProcessIndex();
+                        cpu1.addProcess(queueObservableList.get(cpu1.processIndex));
+                        cpu1.getProcess().setActive();
+                        cpu1.quantum(quantum);
+                        queueTableView.refresh();
+                        cpu1ObservableList.clear();
+                        cpu1ObservableList.add(cpu1.getProcess());
+                    }else{
+                        cpu1.resetProcessIndex();
+                        cpu1.addProcess(idle);
+                        cpu1.quantum(quantum);
+                        queueTableView.refresh();
+                        cpu1ObservableList.clear();
+                        cpu1ObservableList.add(cpu1.getProcess());
+                    }
+                }
+            }else{
+                //A7 feature
+            }
+            //cpu is active
+                //cpu has process
+
+                    //cpu has remaining Quantum
+                        //process has remainingTime
+        }
         public void runEverySecond() {
             final Runnable watcher = new Runnable() {
                 public void run() {
+                    runCpu();
+                    /*
                     System.out.println(Integer.toString(appObservableList.size()));
                     if(cpu1.isActive()){
                         if(cpu1.getRemainingQuantum()>0){
@@ -162,7 +309,9 @@ public class Controller implements Initializable{
                     }else{
                         //A7 feature
                     }
+                */
                 }
+
             };
             final ScheduledFuture<?> watcherHandle =
                     scheduler.scheduleAtFixedRate(watcher, 1, 1, SECONDS);
