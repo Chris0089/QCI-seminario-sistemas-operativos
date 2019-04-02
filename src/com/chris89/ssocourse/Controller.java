@@ -20,20 +20,30 @@ public class Controller implements Initializable{
     public TableView<Process> appTableView;
     public TableView<Process> queueTableView;
     public TableView<Process> cpu1TableView;
+    public TableView<Process> cpu2TableView;
+    public TableView<Process> cpu3TableView;
+    public TableView<Process> cpu4TableView;
     public TableColumn<Process, String> appNameField;
     public TableColumn<Process, Integer> appTimeField;
     public TableColumn<Process, String> queueNameField;
     public TableColumn<Process, Integer> queueTimeField;
     public TableColumn<Process, Integer> activeField;
     public TableColumn<Process, String> cpu1NameField;
+    public TableColumn<Process, String> cpu2NameField;
+    public TableColumn<Process, String> cpu3NameField;
+    public TableColumn<Process, String> cpu4NameField;
     public TableColumn<Process, Integer> cpu1TimeField;
+    public TableColumn<Process, Integer> cpu2TimeField;
+    public TableColumn<Process, Integer> cpu3TimeField;
+    public TableColumn<Process, Integer> cpu4TimeField;
     ObservableList<Process> selectedApp;
     public TextField quantumField;
     int queueTableSize = 0;
     int quantum = 5;
     Process idle = new Process("idle", -1, 0);
     Process test = new Process("test", 25, 0);
-    Processor cpu1 = new Processor(quantum);
+    Processor cpu [] = new Processor[4];
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -48,7 +58,9 @@ public class Controller implements Initializable{
         cpu1TimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
         cpu1TableView.setItems(cpu1ObservableList);
         quantumField.setText(Integer.toString(quantum));
-        cpu1.awake();
+        for(int i = 0; i<4; i++)
+            cpu[i] = new Processor(quantum);
+        cpu[0].awake();
         new cpu1Controller().runEverySecond();
 
     }
@@ -64,21 +76,12 @@ public class Controller implements Initializable{
     ObservableList<Process> cpu1ObservableList = FXCollections.observableArrayList(
             new Process("idle", -1, 0)
     );
-
-    public void addIdle(ObservableList oList, TableView tView){
-        if (oList.isEmpty()){
-            oList.add(idle);
-        }
-    }
-
+    // GUI methods
     public void addToQueue(){
         selectedApp = appTableView.getSelectionModel().getSelectedItems();
         Process process = new Process(selectedApp.get(0).getName(), selectedApp.get(0).getExecutionTime());
         queueObservableList.add(process);
         ++queueTableSize;
-    }
-    public void removeProcess(ObservableList oList, Process process){
-        oList.remove(process);
     }
     public void incQuantum(){
         ++quantum;
@@ -92,6 +95,12 @@ public class Controller implements Initializable{
             quantum = 1;
         }
     }
+    public void awakeCpu(int number){
+        cpu[number].awake();
+        System.out.println(number);
+    }
+
+
     class cpu1Controller {
         private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -109,40 +118,40 @@ public class Controller implements Initializable{
         }
     }
     void takeProcess(){
-        cpu1.quantum(quantum);
+        cpu[0].quantum(quantum);
         if(queueObservableList.size()>0){
-            if(cpu1.getProcessIndex()>=queueObservableList.size()){
-                cpu1.resetProcessIndex();
+            if(cpu[0].getProcessIndex()>=queueObservableList.size()){
+                cpu[0].resetProcessIndex();
             }
-            cpu1.addProcess(queueObservableList.get(cpu1.getProcessIndex()));
-            queueObservableList.get(cpu1.getProcessIndex()).setActive();
+            cpu[0].addProcess(queueObservableList.get(cpu[0].getProcessIndex()));
+            queueObservableList.get(cpu[0].getProcessIndex()).setActive(0);
         }else{
-            cpu1.addProcess(idle);
+            cpu[0].addProcess(idle);
         }
     }
     void refreshViews(){
         queueTableView.refresh();
         cpu1ObservableList.clear();
-        cpu1ObservableList.add(cpu1.getProcess());
+        cpu1ObservableList.add(cpu[0].getProcess());
     }
     public void runCpu1(){
-        if(cpu1.getProcess().getName()=="idle"){
+        if(cpu[0].getProcess().getName()=="idle"){
             takeProcess();
         }else{
-            if(cpu1.getProcess().getRemainingTime()>0){
-                if(cpu1.getRemainingQuantum()>0){
-                    cpu1.decRemainingQuantum();
-                    cpu1.getProcess().decRemeaningTime();
+            if(cpu[0].getProcess().getRemainingTime()>0){
+                if(cpu[0].getRemainingQuantum()>0){
+                    cpu[0].decRemainingQuantum();
+                    cpu[0].getProcess().decRemeaningTime();
                     refreshViews();
                 }else{
-                    queueObservableList.get(cpu1.getProcessIndex()).setInactive();
-                    cpu1.incProcessIndex();
+                    queueObservableList.get(cpu[0].getProcessIndex()).setInactive();
+                    cpu[0].incProcessIndex();
                     takeProcess();
                     runCpu1();
                 }
             }else{
-                queueObservableList.remove(cpu1.getProcess());
-                cpu1.removeProcess();
+                queueObservableList.remove(cpu[0].getProcess());
+                cpu[0].removeProcess();
                 takeProcess();
                 runCpu1();
             }

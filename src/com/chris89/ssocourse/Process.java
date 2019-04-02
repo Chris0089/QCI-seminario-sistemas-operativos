@@ -57,8 +57,8 @@ public class Process {
         return active;
     }
 
-    void setActive(){
-        active = "CPU";
+    void setActive(int cpu){
+        active = "CPU"+Integer.toString(cpu+1);
     }
     void setInactive(){
         active="";
