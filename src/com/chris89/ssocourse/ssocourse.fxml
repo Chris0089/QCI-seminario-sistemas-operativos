@@ -7,19 +7,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="588.0" prefWidth="867.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chris89.ssocourse.Controller">
+<AnchorPane prefHeight="771.0" prefWidth="839.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chris89.ssocourse.Controller">
    <children>
-      <TableView fx:id="cpu1TableView" layoutX="42.0" layoutY="464.0" prefHeight="79.0" prefWidth="362.0">
+      <TableView fx:id="cpu1TableView" layoutX="35.0" layoutY="501.0" prefHeight="79.0" prefWidth="362.0">
         <columns>
           <TableColumn fx:id="cpu1NameField" prefWidth="243.0" text="Aplicación" />
           <TableColumn fx:id="cpu1TimeField" prefWidth="113.0" text="Tiempo" />
         </columns>
       </TableView>
-        <Button fx:id="incQuantumBtn" layoutX="491.0" layoutY="398.0" mnemonicParsing="false" onAction="#incQuantum" text="Incrementar Quantum" />
-        <Label layoutX="181.0" layoutY="439.0" text="CPU" />
-        <Label layoutX="557.0" layoutY="357.0" text="Quantum actual:" />
-        <TextField fx:id="quantumField" editable="false" layoutX="661.0" layoutY="353.0" prefHeight="25.0" prefWidth="49.0" />
+        <Button fx:id="incQuantumBtn" layoutX="474.0" layoutY="362.0" mnemonicParsing="false" onAction="#incQuantum" text="Incrementar Quantum" />
+        <Label layoutX="35.0" layoutY="472.0" text="CPU 1" />
+        <Label layoutX="542.0" layoutY="327.0" text="Quantum actual:" />
+        <TextField fx:id="quantumField" editable="false" layoutX="661.0" layoutY="322.0" prefHeight="25.0" prefWidth="49.0" />
       <TableView fx:id="appTableView" layoutX="447.0" layoutY="52.0" prefHeight="200.0" prefWidth="375.0">
         <columns>
           <TableColumn fx:id="appNameField" prefWidth="272.0" text="Aplicación" />
@@ -30,12 +29,39 @@
         <columns>
           <TableColumn fx:id="queueNameField" prefWidth="242.0" text="Aplicación" />
           <TableColumn fx:id="queueTimeField" minWidth="0.0" prefWidth="87.0" text="Tiempo" />
-            <TableColumn fx:id="activeField" prefWidth="75.0" text="Procesador" />
+            <TableColumn fx:id="activeField" prefWidth="85.0" text="Procesador" />
         </columns>
       </TableView>
       <Label layoutX="150.0" layoutY="24.0" text="Lista de procesos" />
-      <Label layoutX="524.0" layoutY="24.0" text="Aplicaciones" />
+      <Label layoutX="583.0" layoutY="24.0" text="Aplicaciones" />
         <Button fx:id="addBtn" layoutX="482.0" layoutY="262.0" mnemonicParsing="false" onAction="#addToQueue" prefHeight="25.0" prefWidth="327.0" text="Agregar Aplicación" />
-        <Button fx:id="decQuantumBtn" layoutX="671.0" layoutY="398.0" mnemonicParsing="false" onAction="#decQuantum" text="Decrementar Quantum" />
+        <Button fx:id="decQuantumBtn" layoutX="678.0" layoutY="362.0" mnemonicParsing="false" onAction="#decQuantum" text="Decrementar Quantum" />
+      <TableView fx:id="cpu1TableView1" layoutX="454.0" layoutY="501.0" prefHeight="79.0" prefWidth="362.0">
+         <columns>
+            <TableColumn fx:id="cpu1NameField1" prefWidth="243.0" text="Aplicación" />
+            <TableColumn fx:id="cpu1TimeField1" prefWidth="113.0" text="Tiempo" />
+         </columns>
+      </TableView>
+      <TableView fx:id="cpu1TableView2" layoutX="42.0" layoutY="646.0" prefHeight="79.0" prefWidth="362.0">
+         <columns>
+            <TableColumn fx:id="cpu1NameField2" prefWidth="243.0" text="Aplicación" />
+            <TableColumn fx:id="cpu1TimeField2" prefWidth="113.0" text="Tiempo" />
+         </columns>
+      </TableView>
+      <TableView fx:id="cpu1TableView21" layoutX="454.0" layoutY="646.0" prefHeight="79.0" prefWidth="362.0">
+         <columns>
+            <TableColumn fx:id="cpu1NameField21" prefWidth="243.0" text="Aplicación" />
+            <TableColumn fx:id="cpu1TimeField21" prefWidth="113.0" text="Tiempo" />
+         </columns>
+      </TableView>
+      <Label layoutX="455.0" layoutY="472.0" text="CPU 2" />
+      <Label layoutX="50.0" layoutY="620.0" text="CPU 3" />
+      <Label layoutX="454.0" layoutY="620.0" text="CPU 4" />
+      <Button layoutX="529.0" layoutY="467.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
+      <Button layoutX="696.0" layoutY="467.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
+      <Button layoutX="150.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
+      <Button layoutX="288.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
+      <Button layoutX="529.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
+      <Button layoutX="696.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
    </children>
 </AnchorPane>
