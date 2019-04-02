@@ -57,11 +57,11 @@
       <Label layoutX="455.0" layoutY="472.0" text="CPU 2" />
       <Label layoutX="50.0" layoutY="620.0" text="CPU 3" />
       <Label layoutX="454.0" layoutY="620.0" text="CPU 4" />
-      <Button layoutX="529.0" layoutY="467.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
-      <Button layoutX="696.0" layoutY="467.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
-      <Button layoutX="150.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
-      <Button layoutX="288.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
-      <Button layoutX="529.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
-      <Button layoutX="696.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
+      <Button fx:id="actCpu2Btn" layoutX="529.0" layoutY="467.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
+      <Button fx:id="deactCpu2Btn" layoutX="696.0" layoutY="467.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
+      <Button fx:id="actCpu3Btn" layoutX="150.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
+      <Button fx:id="deactCpu3Btn" layoutX="288.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
+      <Button fx:id="actCpu4Btn" layoutX="529.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Activar" />
+      <Button fx:id="deactCpu4Btn" layoutX="696.0" layoutY="615.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="Descativar" />
    </children>
 </AnchorPane>

@@ -17,6 +17,7 @@ class Processor {
         activeProcess = new Process("idle", -1, 0);
         activateProcessor();
         remainingQuantum = quantum;
+        sleep = true;
     }
     void addProcess(Process process){
         activeProcess = process;
