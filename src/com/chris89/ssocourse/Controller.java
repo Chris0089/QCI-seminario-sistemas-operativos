@@ -57,6 +57,15 @@ public class Controller implements Initializable{
         cpu1NameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
         cpu1TimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
         cpu1TableView.setItems(cpu1ObservableList);
+        cpu2NameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        cpu2TimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
+        cpu2TableView.setItems(cpu1ObservableList);
+        cpu3NameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        cpu3TimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
+        cpu3TableView.setItems(cpu1ObservableList);
+        cpu4NameField.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        cpu4TimeField.setCellValueFactory(new PropertyValueFactory<>("RemainingTime"));
+        cpu4TableView.setItems(cpu1ObservableList);
         quantumField.setText(Integer.toString(quantum));
         for(int i = 0; i<4; i++)
             cpu[i] = new Processor(quantum);
@@ -158,5 +167,25 @@ public class Controller implements Initializable{
         }
         refreshViews();
     }
+    void runcpu(int id){
+
+    };
+    public void handlerCPU(){
+        if(queueObservableList.size()>0){
+            for (Process process: queueObservableList) {
+                if(process.getActive()!=""){
+                    for(int i=0;i<4;i++){
+                        if(cpu[i].isActive() && cpu[i].getProcess()!=null){
+                            cpu[i].addProcess(process);
+                            cpu[i].getProcess().setActive(i);
+                            runcpu(i);
+                        }
+                    }
+                }
+            }
+            refreshViews();
+        }
+    }
+   
 }
 

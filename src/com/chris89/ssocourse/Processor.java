@@ -9,7 +9,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 class Processor {
     Process activeProcess;
     boolean active;
-    boolean sleep;
+    boolean awake;
     private int remainingQuantum;
     int processIndex;
 
@@ -17,7 +17,8 @@ class Processor {
         activeProcess = new Process("idle", -1, 0);
         activateProcessor();
         remainingQuantum = quantum;
-        sleep = true;
+        awake = true;
+        active = true;
     }
     void addProcess(Process process){
         activeProcess = process;
@@ -29,10 +30,10 @@ class Processor {
         active = true;
     }
     void awake(){
-        sleep = false;
+        awake = true;
     }
     void sleep(){
-        sleep = true;
+        awake = false;
     }
     void deactivateProcessor(){
         active = false;
@@ -42,6 +43,9 @@ class Processor {
     }
     public boolean isActive(){
         return active;
+    }
+    public boolean isAwake(){
+        return awake;
     }
     public int getRemainingQuantum(){
         return remainingQuantum;

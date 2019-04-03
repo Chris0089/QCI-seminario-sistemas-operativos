@@ -36,22 +36,22 @@
       <Label layoutX="583.0" layoutY="24.0" text="Aplicaciones" />
         <Button fx:id="addBtn" layoutX="482.0" layoutY="262.0" mnemonicParsing="false" onAction="#addToQueue" prefHeight="25.0" prefWidth="327.0" text="Agregar Aplicación" />
         <Button fx:id="decQuantumBtn" layoutX="678.0" layoutY="362.0" mnemonicParsing="false" onAction="#decQuantum" text="Decrementar Quantum" />
-      <TableView fx:id="cpu1TableView1" layoutX="454.0" layoutY="501.0" prefHeight="79.0" prefWidth="362.0">
+      <TableView fx:id="cpu2TableView" layoutX="454.0" layoutY="501.0" prefHeight="79.0" prefWidth="362.0">
          <columns>
-            <TableColumn fx:id="cpu1NameField1" prefWidth="243.0" text="Aplicación" />
-            <TableColumn fx:id="cpu1TimeField1" prefWidth="113.0" text="Tiempo" />
+            <TableColumn fx:id="cpu2NameField" prefWidth="243.0" text="Aplicación" />
+            <TableColumn fx:id="cpu2TimeField" prefWidth="113.0" text="Tiempo" />
          </columns>
       </TableView>
-      <TableView fx:id="cpu1TableView2" layoutX="42.0" layoutY="646.0" prefHeight="79.0" prefWidth="362.0">
+      <TableView fx:id="cpu3TableView" layoutX="42.0" layoutY="646.0" prefHeight="79.0" prefWidth="362.0">
          <columns>
-            <TableColumn fx:id="cpu1NameField2" prefWidth="243.0" text="Aplicación" />
-            <TableColumn fx:id="cpu1TimeField2" prefWidth="113.0" text="Tiempo" />
+            <TableColumn fx:id="cpu3NameField" prefWidth="243.0" text="Aplicación" />
+            <TableColumn fx:id="cpu3TimeField" prefWidth="113.0" text="Tiempo" />
          </columns>
       </TableView>
-      <TableView fx:id="cpu1TableView21" layoutX="454.0" layoutY="646.0" prefHeight="79.0" prefWidth="362.0">
+      <TableView fx:id="cpu4TableView" layoutX="454.0" layoutY="646.0" prefHeight="79.0" prefWidth="362.0">
          <columns>
-            <TableColumn fx:id="cpu1NameField21" prefWidth="243.0" text="Aplicación" />
-            <TableColumn fx:id="cpu1TimeField21" prefWidth="113.0" text="Tiempo" />
+            <TableColumn fx:id="cpu4NameField" prefWidth="243.0" text="Aplicación" />
+            <TableColumn fx:id="cpu4TimeField" prefWidth="113.0" text="Tiempo" />
          </columns>
       </TableView>
       <Label layoutX="455.0" layoutY="472.0" text="CPU 2" />
